@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Update Appointment</title>
+  </head>
+  <body>
+    <form class="" action="/update/{{appointments.id}}" method="post">
+      {% csrf_token %}
+      <label>Tasks</label>
+      <input type="text" name="app_task_edit" value="{{appointments.task}}">
+      <label>Status</label>
+      <select class="" name="app_status_edit">
+        <option value="Pending">Pending</option>
+        <option value="Missed">Missed</option>
+        <option value="Done">Done</option>
+      </select>
+      <label>Date</label>
+      <input type="date" name="app_date_edit" value="{{appointments.date}}">
+      <label>Time</label>
+      <input type="time" name="app_time_edit" value="{{appointments.time}}">
+      <input type="submit" name="" value="Update">
+    </form>
+
+  </body>
+</html>

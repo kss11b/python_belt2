@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>What's Up'</title>
+  </head>
+  <body>
+<h1>Hello {{request.session.first_name}} </h1>
+{% if messages %}
+  {% for message in messages %}
+    <p>{{message}}</p>
+  {% endfor %}
+{% endif %}
+<h2>Here are your appointments for today {{datetime}}</h2>
+<h3>Task | Date | Time | Status</h3>
+{% for appointment in appointments %}
+  {% if date == appointment.date %}
+    <p>{{appointment.task}}  | {{appointment.date}} | {{appointment.time}}  |  {{appointment.status}}</p>
+    {% if appointment.status != 'Done' %}
+        <p><a href="/update_page/{{appointment.id}}">Edit</a>  |  <a href="/delete/{{appointment.id}}">Delete</a></p>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+<h2>Future Appointments</h2>
+{% for appointment in appointments %}
+  {% if date != appointment.date %}
+    <p>{{appointment.task}}  | {{appointment.date}} | {{appointment.time}}  |  {{appointment.status}} </p>
+    {% if appointment.status != 'Done' %}
+        <p><a href="/update_page/{{appointment.id}}">Edit</a>  |  <a href="/delete/{{appointment.id}}">Delete</a></p>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+<form class="" action="/new_app" method="post">
+  {% csrf_token %}
+  <label>Date</label>
+  <input type="date" name="app_date" value="">
+  <label>Time</label>
+  <input type="time" name="app_time" value="">
+  <label>Tasks</label>
+  <input type="text" name="app_task" value="">
+  <input type="submit" name="" value="Add">
+
+</form>
+<a href="/logout">Logout</a>
+  </body>
+</html>
